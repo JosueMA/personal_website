@@ -1,0 +1,759 @@
+---
+title: Statistical Rethinking - Exercises
+author: Josué Mendoza; Said Jiménez
+date: '2018-01-18'
+slug: statistical-rethinking-exercises
+categories:
+  - R
+tags: []
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE)
+```
+
+### Chapter 2 - Small Worlds and Large Worlds
+#### Easy
+##### 2E1
+
+Which of the expressions below correspond to the statement: *the probability of rain on Monday?*
+
+  (1) $Pr(rain)$
+  (2) $\textbf{Pr(rain|Monday)}$
+  (3) $Pr(Monday|rain)$
+  (4) $\textbf{Pr(rain|Monday) / Pr(Monday)}$
+
+En página 36 se demuestra que la probabilidad conjunta de dos eventos es igual al numerador del teorema.
+  
+##### 2E2 
+
+Which of the following expressions corresponds to the expression: $Pr(Monday|rain)$?
+
+ 1. The probability of rain on Monday.
+ 2. The probability of rain, given that it is Monday.
+ 3. **The probability of Monday, given that it is raining.**
+ 4. **The probability that is Monday and it is raining.**
+ 
+##### 2E3 
+
+Which of the expressions below correspond to the statement: *the probability that it is Monday, given that it is raining?*
+ 
+(1) $\textbf{Pr(Monday|rain)}$
+(2) $Pr(rain|Monday)$
+(3) $Pr(rain|Monday)Pr(Monday)$
+(4) $\textbf{Pr(rain|Monday)Pr(Monday)/Pr(rain)}$
+(5) $Pr(Monday|rain)Pr(rain)/Pr(Monday)$
+
+##### 2E4  
+
+The Bayesian statistician Bruno de Finetti (1906–1985) began his book on probability theory with the declaration: “PROBABILITY DOES NOT EXIST.”  e capitals appeared in the original, so I imagine de Finetti wanted us to shout this statement. What he meant is that probability is a device for describing uncertainty from the perspective of an observer with limited knowledge; it has no objective reality. Discuss the globe tossing example from the chapter, in light of this statement. What does it mean to say “the probability of water is 0.7”?
+
+La probabilidad es sólo un modelo  en "small world", y nos permite formalizar y modelar nuestra incertidumbre y así hacer inferencias (y reducirla con información proveniente de observaciones) tomándolo en cuenta; no obstante, no tenemos acceso al estado real del mundo y nos tendremos que limitar a nuestro conocimiento y el modelo.
+
+#### Medium
+##### 2M1
+
+Recall the globe tossing model from the chapter. Compute and plot the grid approximate posterior distribution for each of the following sets of observations. In each case, assume a uniform prior for $p$.
+
+(1) W,W,W
+
+```{r}
+# define grid
+p_grid <- seq(from = 0 , to = 1 , length.out = 20 )
+
+# define prior
+prior <- rep(1 , 20)
+
+# compute likelihood at each value in grid
+(likelihood <- dbinom(3, size = 3 , prob = p_grid))
+
+# compute product of likelihood and prior
+(unstd.posterior <- likelihood * prior)
+
+# standardize the posterior, so it sums to 1
+(posterior <- unstd.posterior / sum(unstd.posterior))
+
+## Plot
+plot( p_grid , posterior , type = "b" ,
+    xlab = "probability of water" , ylab = "posterior probability")
+mtext("20 points")
+```
+
+(2) W,W,W,L
+
+```{r}
+# define grid
+p_grid <- seq(from = 0 , to = 1 , length.out = 20 )
+
+# define prior
+prior <- rep(1 , 20)
+
+# compute likelihood at each value in grid
+(likelihood <- dbinom(3, size = 4 , prob = p_grid))
+
+# compute product of likelihood and prior
+(unstd.posterior <- likelihood * prior)
+
+# standardize the posterior, so it sums to 1
+(posterior <- unstd.posterior / sum(unstd.posterior))
+
+## Plot
+plot( p_grid , posterior , type = "b" ,
+    xlab = "probability of water" , ylab = "posterior probability")
+mtext("20 points")
+```
+
+(3) L,W,W,L,W,W,W
+
+```{r}
+# define grid
+p_grid <- seq(from = 0 , to = 1 , length.out = 20 )
+
+# define prior
+prior <- rep(1 , 20)
+
+# compute likelihood at each value in grid
+(likelihood <- dbinom(5, size = 7 , prob = p_grid))
+
+# compute product of likelihood and prior
+(unstd.posterior <- likelihood * prior)
+
+# standardize the posterior, so it sums to 1
+(posterior <- unstd.posterior / sum(unstd.posterior))
+
+## Plot
+plot( p_grid , posterior , type = "b" ,
+    xlab = "probability of water" , ylab = "posterior probability")
+mtext("20 points")
+```
+
+##### 2M2
+
+Now assume a prior for $p$ that is equal to zero when $p < 0.5$ and is a positive constant when $p ≥ 0.5$. Again compute and plot the grid approximate posterior distribution for each of the sets of observations in the problem just above.
+
+```{r}
+# New prior
+prior <- ifelse( p_grid < 0.5 , 0 , 1 )
+```
+
+(1) W,W,W
+
+```{r echo=FALSE}
+# define grid
+p_grid <- seq(from = 0 , to = 1 , length.out = 20 )
+
+# compute likelihood at each value in grid
+likelihood <- dbinom(3, size = 3 , prob = p_grid)
+
+# compute product of likelihood and prior
+unstd.posterior <- likelihood * prior
+
+# standardize the posterior, so it sums to 1
+posterior <- unstd.posterior / sum(unstd.posterior)
+
+## Plot
+plot( p_grid , posterior , type = "b" ,
+    xlab = "probability of water" , ylab = "posterior probability")
+mtext("20 points")
+```
+
+(2) W,W,W,L
+
+```{r echo=FALSE}
+# define grid
+p_grid <- seq(from = 0 , to = 1 , length.out = 20 )
+
+
+# compute likelihood at each value in grid
+likelihood <- dbinom(3, size = 4 , prob = p_grid)
+
+# compute product of likelihood and prior
+unstd.posterior <- likelihood * prior
+
+# standardize the posterior, so it sums to 1
+posterior <- unstd.posterior / sum(unstd.posterior)
+
+## Plot
+plot( p_grid , posterior , type = "b" ,
+    xlab = "probability of water" , ylab = "posterior probability")
+mtext("20 points")
+```
+
+(3) L,W,W,L,W,W,W
+
+```{r echo=FALSE}
+# define grid
+p_grid <- seq(from = 0 , to = 1 , length.out = 20 )
+
+# compute likelihood at each value in grid
+likelihood <- dbinom(5, size = 7 , prob = p_grid)
+
+# compute product of likelihood and prior
+unstd.posterior <- likelihood * prior
+
+# standardize the posterior, so it sums to 1
+posterior <- unstd.posterior / sum(unstd.posterior)
+
+## Plot
+plot( p_grid , posterior , type = "b" ,
+    xlab = "probability of water" , ylab = "posterior probability")
+mtext("20 points")
+```
+
+##### 2M3
+
+Suppose there are two globes, one for Earth and one for Mars.  e Earth globe is 70% covered in water.  e Mars globe is 100% land. Further suppose that one of these globes—you don’t know which—was tossed in the air and produced a “land” observation. Assume that each globe was equally likely to be tossed. Show that the posterior probability that the globe was the Earth, conditional on seeing “land” ($Pr(Earth|land)$), is 0.23.
+
+
+```{r decision_tree,  echo=FALSE, fig.show=TRUE, fig.align='center', results='hide'}
+
+# Source: http://www.harrysurden.com/wordpress/archives/292
+
+# R Conditional Probability Tree Diagram
+
+# The Rgraphviz graphing package must be installed to do this
+
+# source("https://bioconductor.org/biocLite.R")
+# biocLite("Rgraphviz")
+
+library("Rgraphviz")
+
+# Change the three variables below to match your actual values
+# These are the values that you can change for your own probability tree
+# From these three values, other probabilities (e.g. prob(b)) will be calculated 
+
+# Probability of a
+a <- .5
+
+# Probability (b | a)
+bGivena <- .3
+
+# Probability (b | ¬a)
+bGivenNota <- 1
+
+###################### Everything below here will be calculated
+
+# Calculate the rest of the values based upon the 3 variables above
+notbGivena <- 1 - bGivena
+notA <- 1 - a
+notbGivenNota <- 1 - bGivenNota
+
+#Joint Probabilities of a and B, a and notb, nota and b, nota and notb
+aANDb <- a * bGivena
+aANDnotb <- a * notbGivena
+notaANDb <- notA * bGivenNota
+notaANDnotb <- notA * notbGivenNota
+
+# Probability of B
+b <- aANDb + notaANDb
+notB <- 1 - b
+
+# Bayes theorum - probabiliyt of A | B
+# (a | b) = Prob (a AND b) / prob (b)
+aGivenb <- aANDb / b
+
+# These are the labels of the nodes on the graph
+# To signify "Not A" - we use A' or A prime 
+
+node1 <- "P"
+node2 <- "Earth"
+node3 <- "Mars"
+node4 <- "E&L"
+node5 <- "E&W"
+node6 <- "M&L"
+node7 <- "M&W"
+nodeNames <- c(node1,node2,node3,node4, node5,node6, node7)
+
+rEG <- new("graphNEL", nodes = nodeNames, edgemode = "directed")
+#Erase any existing plots
+# dev.off()
+
+# Draw the "lines" or "branches" of the probability Tree
+rEG <- addEdge(nodeNames[1], nodeNames[2], rEG, 1)
+rEG <- addEdge(nodeNames[1], nodeNames[3], rEG, 1)
+rEG <- addEdge(nodeNames[2], nodeNames[4], rEG, 1)
+rEG <- addEdge(nodeNames[2], nodeNames[5], rEG, 1)
+rEG <- addEdge(nodeNames[3], nodeNames[6], rEG, 1)
+rEG <- addEdge(nodeNames[3], nodeNames[7], rEG, 10)
+
+eAttrs <- list()
+
+q <- edgeNames(rEG)
+
+# Add the probability values to the the branch lines
+
+eAttrs$label <- c(toString(a),toString(notA),
+                  toString(bGivena), toString(notbGivena),
+                  toString(bGivenNota), toString(notbGivenNota))
+names(eAttrs$label) <- c(q[1],q[2], q[3], q[4], q[5], q[6])
+edgeAttrs <- eAttrs
+
+# Set the color, etc, of the tree
+attributes <- list(node = list(label = "foo", fillcolor = "lightblue", fontsize = "11"),
+                 edge = list(color = "red"), graph = list(rankdir = "LR"))
+
+#Plot the probability tree using Rgraphvis
+plot(rEG, edgeAttrs = eAttrs, attrs = attributes)
+nodes(rEG)
+edges(rEG)
+
+#Add the probability values to the leaves of A&B, A&B', A'&B, A'&B'
+text(500, 330, aANDb, cex = .8)
+
+text(500, 230, aANDnotb, cex = .8)
+
+text(500, 130, notaANDb, cex = .8)
+
+text(500, 30, notaANDnotb, cex = .8)
+
+text(145, 240, "Pr(Earth)", cex = .8)
+text(145, 140, "Pr(Mars)", cex = .8)
+
+text(340, 310, "Pr(Land|Earth)", cex = .8)
+text(340, 215, "Pr(Water|Earth)", cex = .8)
+
+text(340, 160, "Pr(Land|Mars)", cex = .8)
+text(340, 65, "Pr(Water|Mars)", cex = .8)
+
+
+
+
+#Write a table in the lower left of the probablites of A and B
+# text(80,50,paste("P(Earth):",a),cex=.9, col="darkgreen")
+# text(80,20,paste("P(Mars):",notA),cex=.9, col="darkgreen")
+# 
+# text(160,50,paste("P(Land):",round(b,digits=2)),cex=.9)
+# text(160,20,paste("P(Water):",round(notB, 2)),cex=.9)
+# 
+# text(120,300,paste("P(Earth|Land): ",round(aGivenb,digits=2)),cex=1,col="blue")
+
+
+```
+
+$$Pr(Earth|Land) = \frac{Pr(Land|Earth) P(Earth)}{Pr(Land|Earth) P(Earth) + Pr(Land|Mars) P(Mars)} = \frac{.3 \times .5}{.3 \times .5 + 1 \times .5}$$
+
+```{r}
+pr_E = .5 # Pr(Earth)
+pr_M = .5 # Pr(Mars)
+
+pr_L_E = .3 # Pr(Land|Earth)
+pr_L_M = 1 # Pr(land|Mars)
+
+pr_L = pr_L_E * pr_E + pr_L_M * pr_M # Pr(Land)
+
+# Pr(Earth|land)
+(pr_E_L = (pr_L_E * pr_E) / pr_L)
+```
+
+
+##### 2M4
+
+Suppose you have a deck with only three cards. Each card has two sides, and each side is either black or white. One card has two black sides.  e second card has one black and one white side.  e third card has two white sides. Now suppose all three cards are placed in a bag and shu ed. Someone reaches into the bag and pulls out a card and places it  at on a table. A black side is shown facing up, but you don’t know the color of the side facing down. Show that the probability that the other side is also black is 2/3. Use the counting method (Section 2 of the chapter) to approach this problem.  is means counting up the ways that each card could produce the observed data (a black side facing up on the table).
+
+##### 2M5
+
+Now suppose there are four cards: B/B, B/W, W/W, and another B/B. Again suppose a card is drawn from the bag and a black side appears face up. Again calculate the probability that the other side is black.
+
+##### 2M6
+
+Imagine that black ink is heavy, and so cards with black sides are heavier than cards with white sides. As a result, it’s less likely that a card with black sides is pulled from the bag. So again assume there are three cards: B/B, B/W, and W/W. A er experimenting a number of times, you conclude that for every way to pull the B/B card from the bag, there are 2 ways to pull the B/W card and 3 ways to pull the W/W card. Again suppose that a card is pulled and a black side appears face up. Show that the probability the other side is black is now 0.5. Use the counting method, as before.
+
+##### 2M7
+
+Assume again the original card problem, with a single card showing a black side face up. Before looking at the other side, we draw another card from the bag and lay it face up on the table. The face that is shown on the new card is white. Show that the probability that the  rst card, the one showing a black side, has black on its other side is now 0.75. Use the counting method, if you can. **Hint:** Treat this like the sequence of globe tosses, counting all the ways to see each observation, for each possible  rst card.
+
+
+#### Hard
+##### 2H1
+
+Suppose there are two species of panda bear. Both are equally common in the wild and live in the same places.  ey look exactly alike and eat the same food, and there is yet no genetic assay capable of telling them apart.  ey di er however in their family sizes. Species A gives birth to twins 10% of the time, otherwise birthing a single infant. Species B births twins 20% of the time, otherwise birthing singleton infants. Assume these numbers are known with certainty, from many years of  eld research.
+
+  Now suppose you are managing a captive panda breeding program. You have a new female panda of unknown species, and she has just given birth to twins. What is the probability that her next birth will also be twins?
+
+##### 2H2
+
+Recall all the facts from the problem above. Now compute the probability that the panda we have is from species A, assuming we have observed only the first birth and that it was twins.
+
+##### 2H3
+
+Continuing on from the previous problem, suppose the same panda mother has a second birth and that it is not twins, but a singleton infant. Compute the posterior probability that this panda is species A.
+
+##### 2H4
+
+A common boast of Bayesian statisticians is that Bayesian inference makes it easy to use all of the data, even if the data are of di erent types.
+
+  So suppose now that a veterinarian comes along who has a new genetic test that she claims can identify the species of our mother panda. But the test, like all tests, is imperfect.  is is the informa- tion you have about the test:
+  
+* The probability it correctly identifies a species A panda is 0.8. 
+* The probability it correctly identifies a species B panda is 0.65.
+
+The vet administers the test to your panda and tells you that the test is positive for species A. First ignore your previous information from the births and compute the posterior probability that your panda is species A.  en redo your calculation, now using the birth data as well.
+
+
+
+### Chapter 3 - Sampling the Imaginary
+#### Easy
+
+These problems use the samples from the posterior distribution for the globe tossing example. This code will give you a specific set of samples, so that you can check your answers exactly.
+
+```{r eval=FALSE}
+p_grid <- seq(from = 0, to = 1, length.out = 1000)
+prior <- rep(1 , 1000)
+likelihood <- dbinom(6, size = 9, prob = p_grid )
+posterior <- likelihood * prior
+posterior <- posterior / sum(posterior)
+set.seed(100)
+samples <- sample(p_grid, prob=posterior, size=1e4, replace=TRUE )
+```
+Use the values in `samples` to answer the questions that follow.
+
+##### 3E1
+
+How much posterior probability lies below $p$ = 0.2?
+
+```{r}
+
+```
+
+##### 3E2
+
+How much posterior probability lies above $p$ = 0.8?
+
+```{r}
+
+```
+
+##### 3E3
+
+How much posterior probability lies between $p$ = 0.2 and $p$ = 0.8?
+
+```{r}
+
+```
+
+##### 3E4
+
+20% of the posterior probability lies below which value of $p$?
+
+```{r}
+
+```
+
+##### 3E5
+
+20% of the posterior probability lies above which value of $p$?
+
+```{r}
+
+```
+
+##### 3E6
+
+Which values of $p$ contain the narrowest interval equal to 66% of the posterior probability?
+
+```{r}
+
+```
+
+##### 3E7
+
+Which values of $p$ contain 66% of the posterior probability, assuming equal posterior probability both below and above the interval?
+
+```{r}
+
+```
+
+#### Medium
+
+##### 3M1
+
+Suppose the globe tossing data had turned out to be 8 water in 15 tosses. Construct the posterior distribution, using grid approximation. Use the same  at prior as before.
+
+```{r}
+
+```
+
+
+##### 3M2
+
+Draw 10,000 samples from the grid approximation from above.  en use the samples to calculate the 90% HPDI for $p$.
+
+```{r}
+
+```
+
+
+##### 3M3
+
+Construct a posterior predictive check for this model and data.  is means simulate the distri- bution of samples, averaging over the posterior uncertainty in $p$. What is the probability of observing 8 water in 15 tosses?
+
+```{r}
+
+```
+
+
+##### 3M4
+
+Using the posterior distribution constructed from the new (8/15) data, now calculate the probability of observing 6 water in 9 tosses.
+
+```{r}
+
+```
+
+
+##### 3M5
+
+Start over at **3M1**, but now use a prior that is zero below $p$ = 0.5 and a constant above $p$ = 0.5.  is corresponds to prior information that a majority of the Earth’s surface is water. Repeat each problem above and compare the inferences. What di erence does the better prior make? If it helps, compare inferences (using both priors) to the true value $p$ = 0.7.
+
+```{r}
+
+```
+
+#### Hard
+
+**Introduction**. The practice problems here all use the data below. These data indicate the gender (male = 1, female = 0) of o cially reported first and second born children in 100 two-child families.
+
+```{r}
+birth1 <- c(1,0,0,0,1,1,0,1,0,1,0,0,1,1,0,1,1,0,0,0,1,0,0,0,1,0,
+0,0,0,1,1,1,0,1,0,1,1,1,0,1,0,1,1,0,1,0,0,1,1,0,1,0,0,0,0,0,0,0,
+1,1,0,1,0,0,1,0,0,0,1,0,0,1,1,1,1,0,1,0,1,1,1,1,1,0,0,1,0,1,1,0,
+1,0,1,1,1,0,1,1,1,1)
+
+birth2 <- c(0,1,0,1,0,1,1,1,0,0,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,0,
+1,1,1,0,1,1,1,0,1,0,0,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,
+1,1,1,0,1,1,0,1,1,0,1,1,1,0,0,0,0,0,0,1,0,0,0,1,1,0,0,1,0,0,1,1,
+0,0,0,1,1,1,0,0,0,0)
+```
+
+So for example, the first family in the data reported a boy (1) and then a girl (0). The second family reported a girl (0) and then a boy (1). The third family reported two girls. You can load these two vectors into R’s memory by typing:
+
+```{r}
+library(rethinking)
+data(homeworkch3)
+```
+
+Use these vectors as data. So for example to compute the total number of boys born across all of these births, you could use:
+
+```{r}
+sum(birth1) + sum(birth2)
+```
+
+##### 3H1
+
+Using grid approximation, compute the posterior distribution for the probability of a birth being a boy. Assume a uniform prior probability. Which parameter value maximizes the posterior probability?
+
+```{r}
+
+```
+
+
+##### 3H2
+
+Using the `sample` function, draw 10,000 random parameter values from the posterior distribution you calculated above. Use these samples to estimate the 50%, 89%, and 97% highest posterior density intervals.
+
+```{r}
+
+```
+
+##### 3H3
+
+Use `rbinom` to simulate 10,000 replicates of 200 births. You should end up with 10,000 numbers, each one a count of boys out of 200 births. Compare the distribution of predicted numbers of boys to the actual count in the data (111 boys out of 200 births). There are many good ways to visualize the simulations, but the dens command (part of the `rethinking` package) is probably the easiest way in this case. Does it look like the model  ts the data well?  at is, does the distribution of predictions include the actual observation as a central, likely outcome?
+
+```{r}
+
+```
+
+##### 3H4
+
+Now compare 10,000 counts of boys from 100 simulated first borns only to the number of boys in the first births, `birth1`. How does the model look in this light?
+
+```{r}
+
+```
+
+##### 3H5
+
+The model assumes that sex of first and second births are independent. To check this assump- tion, focus now on second births that followed female first borns. Compare 10,000 simulated counts of boys to only those second births that followed girls. To do this correctly, you need to count the number of first borns who were girls and simulate that many births, 10,000 times. Compare the counts of boys in your simulations to the actual observed count of boys following girls. How does the model look in this light? Any guesses what is going on in these data?
+
+```{r}
+
+```
+
+### Chapter 4 - Linear Models
+#### Easy
+
+##### 4E1
+
+In the model definition below, which line is the likelihood?
+
+$$y_i \sim Normal(\mu, \sigma)$$
+$$\mu \sim Normal(0, 10)$$
+$$\sigma \sim Uniform(0, 0)$$
+
+```{r}
+
+```
+
+
+##### 4E2
+
+In the model de definition just above, how many parameters are in the posterior distribution?
+
+
+##### 4E3
+
+Using the model de definition above, write down the appropriate form of Bayes’ theorem that includes the proper likelihood and priors.
+
+##### 4E4
+
+In the model de definition below, which line is the linear model?
+
+$$y_i \sim Normal(\mu, \sigma)$$
+$$\mu = \alpha + \beta x_i$$
+$$\alpha \sim Normal(0, 10)$$
+$$\beta \sim Normal(0,1)$$
+$$\sigma \sim Uniform(0, 10)$$
+
+##### 4E5
+
+In the model de definition just above, how many parameters are in the posterior distribution?
+
+
+#### Medium
+
+##### 4M1
+
+For the model de definition below, simulate observed heights from the prior (not the posterior)
+
+$$y_i \sim Normal(\mu, \sigma)$$
+$$\mu \sim Normal(0, 10)$$
+$$\sigma \sim Uniform(0, 10)$$
+
+##### 4M2
+
+Translate the model just above into a `map` formula.
+
+##### 4M3
+
+Translate the `map` model formula below into a mathematical model de definition.
+
+```
+flist <- alist(
+    y ~ dnorm( mu , sigma ),
+    mu <- a + b*x,
+    a ~ dnorm( 0 , 50 ),
+    b ~ dunif( 0 , 10 ),
+    sigma ~ dunif( 0 , 50 )
+)
+```
+
+##### 4M4
+
+A sample of students is measured for heigh teach year for 3years. After the third year, you want to fit a linear regression predicting height using year as a predictor. Write down the mathematical model definition for this regression, using any variable names and priors you choose. Be prepared to defend your choice of priors.
+
+##### 4M5
+
+Now suppose I tell you that the average height in the  first year was 120 cm and that every student got taller each year. Does this information lead you to change your choice of priors? How?
+
+
+##### 4M6
+
+Now suppose I tell you that the variance among heights for students of the same age is never more than 64cm. How does this lead you to revise your priors?
+
+#### Hard
+
+##### 4H1
+
+The weights listed below were recorded in the !Kung census, but heights were not recorded for these individuals. Provide predicted heights and 89% intervals (either HPDI or PI) for each of these individuals. That is, fill in the table below, using model-based predictions.
+
+***********
+
+
+##### 4H2
+
+Select out all the rows in the `Howell1` data with ages below 18 years of age. If you do it right, you should end up with a new data frame with 192 rows in it.
+
+(a) Fit a linear regression to these data, using `map`. Present and interpret the estimates. For every 10 units of increase in weight, how much taller does the model predict a child gets?
+
+```{r}
+
+```
+
+(b) Plot the raw data, with height on the vertical axis and weight on the horizontal axis. Super-impose the MAP regression line and 89% HPDI for the mean. Also superimpose the 89% HPDI for predicted heights.
+
+(c) What aspects of the model fit concern you? Describe the kinds of assumptions you would change, if any, to improve the model. You don’t have to write any new code. Just explain what the model appears to be doing a bad job of, and what you hypothesize would be a better model.
+
+##### 4H3
+
+Suppose a colleague of yours, who works on allometry, glances at the practice problems just above. Your colleague exclaims, “That’s silly. Everyone knows that it’s only the *logarithm* of body weight that scales with height!” Let’s take your colleague’s advice and see what happens.
+
+(a) Model the relationship between height (cm) and the natural logarithm of weight (log-kg). Use the entire `Howell1` data frame, all 544 rows, adults and non-adults. Fit this model, using quadratic approximation:
+
+$$h_i \sim Normal(\mu, \sigma)$$
+$$\mu_i = \alpha + \beta log(w_i)$$
+$$\alpha \sim Normal(178, 100)$$
+$$\beta \sim Normal(0, 100)$$
+$$\sigma \sim Uniform(0, 50)$$
+
+where $h_i$ is the height of individual $i$ and $w_i$ is the weight (in kg) of individual $i$. The function for computing a natural log in R is just `log`. Can you interpret the resulting estimates?
+
+```{r}
+
+```
+
+(b) Begin with this plot:
+
+```
+ plot(height ~ weight, data = Howell1,
+    col = col.alpha(rangi2, 0.4)
+```
+
+Then use samples from the quadratic approximate posterior of the model in (a) to superimpose on the plot: (1) the predicted mean height as a function of weight, (2) the 97% HPDI for the mean, and (3) the 97% HPDI for predicted heights.
+
+### Chapter 5 - Multivariate Linear Models
+#### Easy
+#### Medium
+#### Hard
+### Chapter 6 - Overfitting and Model Comparison
+#### Easy
+#### Medium
+#### Hard
+### Chapter 7 - Interactions
+#### Easy
+#### Medium
+#### Hard
+### Chapter 8 - Markov chain Monte Carlo Estimation
+#### Easy
+#### Medium
+#### Hard
+### Chapter 9 - Big Entropy and the Generalized Linear Model
+#### Easy
+#### Medium
+#### Hard
+### Chapter 10 - Counting and Classification
+#### Easy
+#### Medium
+#### Hard
+### Chapter 11 - Monsters and Mixtures
+#### Easy
+#### Medium
+#### Hard
+### Chapter 12 - Multilevel Models
+#### Easy
+#### Medium
+#### Hard
+### Chapter 13 - Adventures in Covariance
+#### Easy
+#### Medium
+#### Hard
+### Chapter 14 - Missing Data and Other Opportunities
+#### Easy
+#### Medium
+#### Hard
+### Chapter 15 - Horoscopes
+#### Easy
+#### Medium
+#### Hard
