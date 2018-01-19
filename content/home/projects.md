@@ -1,6 +1,6 @@
 +++
 # Projects widget.
-widget = "Proyectos"
+widget = "projects"
 active = true
 date = "2016-04-20T00:00:00"
 
@@ -29,15 +29,15 @@ filter_default = 0
 # Use "*" tag to show all projects or an existing tag prefixed with "." to filter by specific tag.
 # To remove toolbar, delete/comment all instances of `[[filter]]` below.
 [[filter]]
-  name = "All"
+  name = "Todos"
   tag = "*"
 
 [[filter]]
-  name = "Deep Learning"
+  name = "Psicología"
   tag = ".deep-learning"
 
 [[filter]]
-  name = "Other"
+  name = "Estadística"
   tag = ".demo"
 
 +++
