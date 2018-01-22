@@ -2,10 +2,10 @@
 # Recent Publications widget.
 # This widget displays recent publications from `content/publication/`.
 widget = "publications"
-active = true
+active = false
 date = 2016-04-20
 
-title = "Recent Publications"
+title = "Publicaciones"
 subtitle = ""
 
 # Order that this section will appear in.
