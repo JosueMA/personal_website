@@ -12,7 +12,8 @@ weight = 1
   interests = [
     "Psicología Experimental",
     "Estadística Bayesiana",
-    "Modelización Matemática del Comportamiento"
+    "Modelización Matemática del Comportamiento", 
+    "R"
   ]
 
 # List your qualifications (such as academic degrees).

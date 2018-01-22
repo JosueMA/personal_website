@@ -253,10 +253,10 @@ defaultContentLanguageInSubdir = false
   url = "#about"
   weight = 1
 
-[[menu.main]]
-  name = "Acerca de mí"
-  url = "#about_me"
-  weight = 2
+#[[menu.main]]
+ # name = "Acerca de mí"
+  #url = "#about_me"
+  #weight = 2
 
 [[menu.main]]
   name = "Blog"
@@ -269,7 +269,7 @@ defaultContentLanguageInSubdir = false
   weight = 4
 
 [[menu.main]]
-  name = "Cursos"
+  name = "Ponencias y cursos"
   url = "#teaching"
   weight = 5
 
