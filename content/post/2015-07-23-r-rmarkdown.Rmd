@@ -28,11 +28,11 @@ fit <- lm(dist ~ speed, data = cars)
 fit
 ```
 
-# Including Plots
+# Incluyendo gráficas
 
 También puedes incluir gráficas. Ver Figura \@ref(fig:pie) por ejemplo:
 
-```{r pie, fig.cap='A fancy pie chart.', tidy=FALSE}
+```{r pie, fig.cap='gráfica de pastel sofisticada.', tidy=FALSE}
 par(mar = c(0, 1, 0, 1))
 pie(
   c(280, 60, 20),
