@@ -65,6 +65,8 @@ defaultContentLanguageInSubdir = false
   #phone = "888 888 88 88"
   #skype = "echo123"
   #telegram = ""
+  
+  description = "Página personal de Josué Mendoza con artículos de Psicología, Estadística y Programación en R"
 
   # Enable Keybase in Contact widget by entering your keybase.io username.
   keybase = ""
