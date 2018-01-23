@@ -1,0 +1,14 @@
+---
+title: "Curso de Prueba"
+author: "Josué Mendoza"
+date: "1/23/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Este es un curso de prueba.
+
+Puedes descargar la presentación [aquí](https://josuema.rbind.io/Introducción_a_R.pdf).
