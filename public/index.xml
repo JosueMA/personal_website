@@ -698,5 +698,16 @@ data(homeworkch3)&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
+    <item>
+      <title>Curso de Prueba</title>
+      <link>/curso_prueba/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/curso_prueba/</guid>
+      <description>&lt;p&gt;Este es un curso de prueba.&lt;/p&gt;
+&lt;p&gt;Puedes descargar la presentación &lt;a href=&#34;https://josuema.rbind.io/Introducción_a_R.pdf&#34;&gt;aquí&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
