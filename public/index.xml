@@ -706,6 +706,19 @@ data(homeworkch3)&lt;/code&gt;&lt;/pre&gt;
       <guid>/curso_prueba/</guid>
       <description>&lt;p&gt;Este es un curso de prueba.&lt;/p&gt;
 &lt;p&gt;Puedes descargar la presentación &lt;a href=&#34;https://josuema.rbind.io/Introducción_a_R.pdf&#34;&gt;aquí&lt;/a&gt;.&lt;/p&gt;
+&lt;div id=&#34;unidad-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Unidad 1&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Tema 1.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;unidad-2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Unidad 2&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div id=&#34;referencias&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Referencias&lt;/h1&gt;
+&lt;/div&gt;
 </description>
     </item>
     

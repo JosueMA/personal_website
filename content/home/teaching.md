@@ -20,3 +20,4 @@ weight = 60
 * *Análisis de Varianza (ANOVA): Introducción a la modelización de datos en R* [(material)](https://github.com/JosueMA/Intersemestral-ANOVA).
 * *Introducción a la neuroimagen computacional - Uso de bases de datos libres y reproducibilidad* [(material)] (https://github.com/JosueMA/Curso_Neuroimagen_Reproducibilidad).
 * Introducción a R [(presentación)](https://josuema.rbind.io/Introducción_a_R.pdf).
+* [Curso de prueba](https://josuema.rbind.io/curso_prueba/).
