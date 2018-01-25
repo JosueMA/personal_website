@@ -1,5 +1,6 @@
 # Configuration of Academic
 # Documentation: https://sourcethemes.com/academic/
+description = "Página personal de Josué Mendoza (josuema) (estudiante del IIMAS, UNAM). con artículos de Psicología, Estadística y Programación en R."
 
 # The URL of your website.
 # End your URL with a `/` trailing slash, e.g. `https://example.com/`.
