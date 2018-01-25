@@ -51,8 +51,8 @@ defaultContentLanguageInSubdir = false
 
   # Your details.
   name = "R. Josué Mendoza"
+  description = "Página personal de Josué Mendoza (josuema) (estudiante del IIMAS, UNAM). con artículos de Psicología, Estadística y Programación en R."
   role = "Estudiante de Especialización en Estadística Aplicada"
-  description = "Página personal de Josué Mendoza (IIMAS, UNAM). con artículos de Psicología, Estadística y Programación en R."
 
 
   # Organizations/Affiliations.
